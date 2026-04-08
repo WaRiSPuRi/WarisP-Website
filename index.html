@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Waris Puri — Builder & Creator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #ffffff; --surface: #f8f8f7; --surface2: #f0efed;
+      --border: #e5e4e0; --text: #1a1917; --muted: #6b6a66;
+      --subtle: #9b9a96; --link: #2563eb;
+      --radius: 12px; --radius-sm: 6px; --sidebar: 260px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.7; }
+    .layout { display: flex; min-height: 100vh; max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* SIDEBAR */
+    .sidebar { width: var(--sidebar); flex-shrink: 0; padding: 4rem 2rem 4rem 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; gap: 2rem; }
+    .avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--text); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem; color: var(--bg); margin-bottom: 0.5rem; }
+    .sidebar-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 0.25rem; }
+    .sidebar-role { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.15rem; }
+    .status-row { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--muted); }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; flex-shrink: 0; animation: blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.4} }
+    .nav-section { display: flex; flex-direction: column; gap: 2px; }
+    .nav-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--subtle); margin-bottom: 6px; }
+    .nav-item { display: flex; align-items: center; gap: 8px; padding: 5px 8px; border-radius: var(--radius-sm); font-size: 0.85rem; color: var(--muted); text-decoration: none; transition: all 0.15s; }
+    .nav-item:hover, .nav-item.active { background: var(--surface2); color: var(--text); }
+    .nav-icon { width: 16px; text-align: center; font-size: 13px; }
+    .sidebar-social { display: flex; gap: 8px; flex-wrap: wrap; }
+    .social-btn { display: flex; align-items: center; gap: 5px; font-size: 0.78rem; color: var(--muted); text-decoration: none; padding: 4px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); transition: all 0.15s; }
+    .social-btn:hover { border-color: var(--text); color: var(--text); }
+
+    /* MAIN */
+    .main { flex: 1; padding: 4rem 0 6rem 2.5rem; border-left: 1px solid var(--border); min-width: 0; }
+    .section { margin-bottom: 4rem; }
+    .section-heading { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+
+    /* ABOUT */
+    .about-text { color: var(--muted); line-height: 1.85; font-size: 0.92rem; }
+    .about-text p { margin-bottom: 0.75rem; }
+    .about-text strong { color: var(--text); font-weight: 500; }
+    .cert-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.25rem; }
+    .cert-badge { display: flex; align-items: center; gap: 6px; padding: 5px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 100px; font-size: 0.78rem; font-weight: 500; color: var(--text); }
+
+    /* TIMELINE */
+    .timeline { display: flex; flex-direction: column; }
+    .timeline-item { display: flex; gap: 1rem; padding: 1rem; border-radius: var(--radius); transition: background 0.15s; }
+    .timeline-item:hover { background: var(--surface); }
+    .tl-logo { width: 36px; height: 36px; border-radius: 8px; background: var(--surface2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.7rem; color: var(--text); flex-shrink: 0; margin-top: 2px; text-align: center; line-height: 1.2; }
+    .tl-body { flex: 1; min-width: 0; }
+    .tl-top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .tl-name { font-weight: 500; font-size: 0.9rem; }
+    .tl-date { font-size: 0.78rem; color: var(--subtle); white-space: nowrap; }
+    .tl-role { font-size: 0.82rem; color: var(--muted); margin-top: 1px; }
+    .tl-desc { font-size: 0.82rem; color: var(--muted); margin-top: 5px; line-height: 1.65; }
+    .tl-desc ul { padding-left: 1.1rem; margin-top: 4px; }
+    .tl-desc li { margin-bottom: 3px; }
+
+    /* PROJECTS */
+    .projects-list { display: flex; flex-direction: column; }
+    .project-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; border-radius: var(--radius); transition: background 0.15s; }
+    .project-item:hover { background: var(--surface); }
+    .project-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--surface2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+    .project-body { flex: 1; min-width: 0; }
+    .project-top { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+    .project-name { font-weight: 500; font-size: 0.9rem; }
+    .project-dates { font-size: 0.78rem; color: var(--subtle); }
+    .project-desc { font-size: 0.82rem; color: var(--muted); margin-top: 3px; line-height: 1.6; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+    .tag { padding: 2px 8px; background: var(--surface2); border-radius: 4px; font-size: 0.72rem; color: var(--muted); font-weight: 500; }
+    .project-link-row { display: flex; gap: 8px; margin-top: 8px; }
+    .plink { font-size: 0.78rem; color: var(--link); text-decoration: none; }
+    .plink:hover { text-decoration: underline; }
+
+    /* RESUME */
+    .resume-tabs { display: flex; gap: 4px; margin-bottom: 1.5rem; }
+    .rtab { padding: 6px 14px; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 500; cursor: pointer; border: 1px solid transparent; background: transparent; color: var(--muted); transition: all 0.15s; }
+    .rtab.active { background: var(--text); color: var(--bg); border-color: var(--text); }
+    .rtab:not(.active):hover { background: var(--surface2); color: var(--text); }
+    .resume-pane { display: none; }
+    .resume-pane.visible { display: block; }
+    .resume-header { margin-bottom: 2rem; }
+    .resume-header h2 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .resume-contact { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; font-size: 0.8rem; color: var(--muted); }
+    .resume-contact a { color: var(--link); text-decoration: none; }
+    .resume-block { margin-bottom: 2rem; }
+    .resume-block-title { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--subtle); margin-bottom: 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+    .r-entry { margin-bottom: 1.25rem; }
+    .r-entry-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+    .r-entry-name { font-weight: 500; font-size: 0.88rem; }
+    .r-entry-date { font-size: 0.78rem; color: var(--subtle); }
+    .r-entry-sub { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+    .r-entry-desc { font-size: 0.82rem; color: var(--muted); margin-top: 5px; line-height: 1.65; }
+    .r-entry-desc ul { padding-left: 1.1rem; margin-top: 3px; }
+    .r-entry-desc li { margin-bottom: 3px; }
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+    .skill-tag { padding: 4px 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 100px; font-size: 0.78rem; color: var(--text); }
+    .download-bar { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 1rem; font-size: 0.82rem; color: var(--muted); }
+    .download-btn { padding: 5px 14px; background: var(--text); color: var(--bg); border: none; border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: 500; cursor: pointer; text-decoration: none; display: inline-block; }
+    .download-btn:hover { opacity: 0.8; }
+
+    /* CONTACT */
+    .contact-note { font-size: 0.88rem; color: var(--muted); margin-bottom: 1.25rem; line-height: 1.7; }
+    .contact-note a { color: var(--link); }
+    .contact-grid { display: flex; gap: 8px; flex-wrap: wrap; }
+    .contact-link { display: flex; align-items: center; gap: 6px; padding: 7px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.82rem; color: var(--text); text-decoration: none; transition: all 0.15s; }
+    .contact-link:hover { border-color: var(--text); background: var(--surface); }
+
+    .lang-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .lang-badge { padding: 5px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 100px; font-size: 0.82rem; color: var(--text); }
+
+    @media (max-width: 680px) {
+      .layout { flex-direction: column; padding: 0 1rem; }
+      .sidebar { width: 100%; height: auto; position: static; padding: 2.5rem 0 1.5rem; border-bottom: 1px solid var(--border); }
+      .main { padding: 2rem 0 4rem; border-left: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div>
+      <div class="avatar">WP</div>
+      <div class="sidebar-name">Waris Puri</div>
+      <div class="sidebar-role">Student · Builder · Leader</div>
+      <div class="status-row"><span class="dot"></span><span>Milton, Ontario</span></div>
+    </div>
+    <nav class="nav-section">
+      <div class="nav-label">Navigate</div>
+      <a class="nav-item active" href="#about"><span class="nav-icon">◎</span> About</a>
+      <a class="nav-item" href="#experience"><span class="nav-icon">◈</span> Experience</a>
+      <a class="nav-item" href="#projects"><span class="nav-icon">◉</span> Projects</a>
+      <a class="nav-item" href="#education"><span class="nav-icon">◇</span> Education</a>
+      <a class="nav-item" href="#resume"><span class="nav-icon">□</span> Resume</a>
+      <a class="nav-item" href="#contact"><span class="nav-icon">◌</span> Contact</a>
+    </nav>
+    <div>
+      <div class="nav-label" style="margin-bottom:8px;">Connect</div>
+      <div class="sidebar-social">
+        <a href="mailto:puriwaris2010@gmail.com" class="social-btn">✉ Email</a>
+        <a href="https://linkedin.com" class="social-btn">in LinkedIn</a>
+        <a href="https://github.com" class="social-btn">⌥ GitHub</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <h2 class="section-heading">About</h2>
+      <div class="about-text">
+        <p>Hi, I'm <strong>Waris Puri</strong> — a Grade 10 AP student at St. Kateri Tekakwitha Secondary School in <strong>Milton, Ontario</strong> with a well-rounded background in STEM, business, and community leadership.</p>
+        <p>As the <strong>Head Coder</strong> for the St. Kateri Robotics Team and a <strong>DECA Provincials qualifier</strong>, I've built a strong foundation in technical problem-solving and strategic communication.</p>
+        <p>Outside of school, I build <strong>AI-powered web apps</strong> — including TripGenius and CapitalEdge — combining my certifications in Python, HTML5, and Arduino with modern AI tools to ship real, live products.</p>
+        <p>I'm also First Aid/CPR certified, High Five® trained, and fluent in four languages.</p>
+      </div>
+      <div class="cert-row">
+        <span class="cert-badge">🔧 Arduino</span>
+        <span class="cert-badge">🐍 Python</span>
+        <span class="cert-badge">🌐 HTML5</span>
+        <span class="cert-badge">📷 Phone Photography</span>
+        <span class="cert-badge">🏥 First Aid / CPR</span>
+        <span class="cert-badge">⭐ High Five®</span>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="section">
+      <h2 class="section-heading">Experience</h2>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="tl-logo">SK</div>
+          <div class="tl-body">
+            <div class="tl-top"><span class="tl-name">St. Kateri Tekakwitha</span><span class="tl-date">Apr 2026 – Present</span></div>
+            <div class="tl-role">Peer Mentor · Milton, ON</div>
+            <div class="tl-desc"><ul>
+              <li>Support Grade 9 students transitioning to high school with guidance on resources and social expectations.</li>
+              <li>Lead introductory sessions and serve as a consistent point of contact for navigating daily high school life.</li>
+            </ul></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-logo">TM</div>
+          <div class="tl-body">
+            <div class="tl-top"><span class="tl-name">Town of Milton</span><span class="tl-date">Dec 2025 – Present</span></div>
+            <div class="tl-role">Swimming Instructor Volunteer · Milton, ON</div>
+            <div class="tl-desc"><ul>
+              <li>Work with children across various age groups, demonstrating understanding of individual needs and behaviours.</li>
+              <li>Apply patience, communication, and adaptability to support positive interactions and development.</li>
+            </ul></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-logo">SK</div>
+          <div class="tl-body">
+            <div class="tl-top"><span class="tl-name">St. Kateri Robotics Team</span><span class="tl-date">Sep 2024 – Present</span></div>
+            <div class="tl-role">Head Coder · Milton, ON</div>
+            <div class="tl-desc"><ul>
+              <li>Lead all programming for the robotics team; collaborate to design, build, and program robots for competitions.</li>
+              <li>Apply problem-solving and critical thinking to troubleshoot technical challenges under competition conditions.</li>
+            </ul></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-logo">HP</div>
+          <div class="tl-body">
+            <div class="tl-top"><span class="tl-name">Halton Police</span><span class="tl-date">Feb 2025 – Jun 2025</span></div>
+            <div class="tl-role">Peace Program Representative · Oakville, ON</div>
+            <div class="tl-desc"><ul>
+              <li>Selected to complete an intensive 11-week Halton Police Peace Program.</li>
+              <li>Developed skills in conflict resolution, negotiation, de-escalation, and professional public safety conduct.</li>
+            </ul></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-logo">KM</div>
+          <div class="tl-body">
+            <div class="tl-top"><span class="tl-name">Kumon Math and Reading</span><span class="tl-date">Nov 2024 – Nov 2025</span></div>
+            <div class="tl-role">Volunteer · Milton, ON</div>
+            <div class="tl-desc"><ul>
+              <li>Assisted students in an academic learning environment, providing support and encouragement as needed.</li>
+              <li>Demonstrated strong organizational skills through maintaining educational materials and resources.</li>
+            </ul></div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-logo">SC</div>
+          <div class="tl-body">
+            <div class="tl-top"><span class="tl-name">Student Council &amp; Leadership</span><span class="tl-date">Ongoing</span></div>
+            <div class="tl-role">Representative</div>
+            <div class="tl-desc"><ul>
+              <li>Led and coordinated volunteer teams during fundraising activities.</li>
+              <li>Collaborated with representatives to identify and implement student-focused solutions.</li>
+              <li>Organized and facilitated meetings and events to support student council initiatives.</li>
+            </ul></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <h2 class="section-heading">Projects</h2>
+      <div class="projects-list">
+
+        <div class="project-item">
+          <div class="project-icon">✈️</div>
+          <div class="project-body">
+            <div class="project-top"><span class="project-name">TripGenius</span><span class="project-dates">2024</span></div>
+            <div class="project-desc">AI-powered trip planner that generates full itineraries, destination photos, live weather, and affiliate-linked travel deals. Built from scratch and deployed live on Vercel.</div>
+            <div class="project-tags"><span class="tag">Groq API</span><span class="tag">Unsplash</span><span class="tag">OpenWeatherMap</span><span class="tag">Vercel</span><span class="tag">JavaScript</span></div>
+            <div class="project-link-row"><a href="#" class="plink">↗ Live Demo</a><a href="#" class="plink">↗ GitHub</a></div>
+          </div>
+        </div>
+
+        <div class="project-item">
+          <div class="project-icon">📈</div>
+          <div class="project-body">
+            <div class="project-top"><span class="project-name">CapitalEdge</span><span class="project-dates">2025</span></div>
+            <div class="project-desc">Finance and investing hub with real-time market data, an AI stock analyst powered by Groq, financial calculators, and a live news feed. Monetized through ads and affiliate links.</div>
+            <div class="project-tags"><span class="tag">Groq API</span><span class="tag">Market APIs</span><span class="tag">Vercel</span><span class="tag">Serverless</span><span class="tag">JavaScript</span></div>
+            <div class="project-link-row"><a href="#" class="plink">↗ Live Demo</a><a href="#" class="plink">↗ GitHub</a></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="section">
+      <h2 class="section-heading">Education</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="tl-logo">SK</div>
+          <div class="tl-body">
+            <div class="tl-top"><span class="tl-name">St. Kateri Tekakwitha Secondary School</span><span class="tl-date">2024 – Jun 2028</span></div>
+            <div class="tl-role">Grade 10 AP (Advanced Placement) · Milton, ON</div>
+            <div class="tl-desc">DECA Provincials qualifier · Head Coder, Robotics Team · Student Council Representative</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:1.75rem;">
+        <div class="nav-label" style="margin-bottom:10px;">Certificates</div>
+        <div class="cert-row" style="margin-top:0;">
+          <span class="cert-badge">🔧 Arduino</span>
+          <span class="cert-badge">🐍 Python</span>
+          <span class="cert-badge">🌐 HTML5</span>
+          <span class="cert-badge">📷 Phone Photography</span>
+          <span class="cert-badge">🏥 Standard First Aid</span>
+          <span class="cert-badge">❤️ CPR</span>
+          <span class="cert-badge">⭐ High Five®</span>
+        </div>
+      </div>
+
+      <div style="margin-top:1.75rem;">
+        <div class="nav-label" style="margin-bottom:10px;">Languages</div>
+        <div class="lang-grid">
+          <span class="lang-badge">🇬🇧 English</span>
+          <span class="lang-badge">🇮🇳 Hindi</span>
+          <span class="lang-badge">🇫🇷 French</span>
+          <span class="lang-badge">🇮🇳 Punjabi</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUME -->
+    <section id="resume" class="section">
+      <h2 class="section-heading">Resume</h2>
+      <div class="resume-tabs">
+        <button class="rtab active" onclick="switchResume('view',this)">View online</button>
+        <button class="rtab" onclick="switchResume('download',this)">Download PDF</button>
+      </div>
+
+      <!-- ONLINE VIEW -->
+      <div id="resume-view" class="resume-pane visible">
+        <div class="resume-header">
+          <h2>Waris Puri</h2>
+          <p style="font-size:0.85rem;color:var(--muted);">Student · Builder · Leader · Milton, Ontario</p>
+          <div class="resume-contact">
+            <a href="tel:+19058057230">+1 905-805-7230</a>
+            <a href="mailto:puriwaris2010@gmail.com">puriwaris2010@gmail.com</a>
+            <span>Milton, ON</span>
+          </div>
+        </div>
+
+        <div class="resume-block">
+          <div class="resume-block-title">Summary</div>
+          <p style="font-size:0.85rem;color:var(--muted);line-height:1.75;">Dedicated student with a well-rounded background in STEM, business, and community leadership. Head Coder for the St. Kateri Robotics Team and DECA Provincials qualifier, with a strong foundation in technical problem-solving and strategic business communication. Experience as a Peer Mentor, Army Cadet, and Halton Police Peace Program participant demonstrates a commitment to teamwork and leadership. First Aid/CPR certified and High Five® trained, with practical experience as a Swimming Instructor and Kumon volunteer.</p>
+        </div>
+
+        <div class="resume-block">
+          <div class="resume-block-title">Experience</div>
+          <div class="r-entry">
+            <div class="r-entry-top"><span class="r-entry-name">Peer Mentor — St. Kateri Tekakwitha</span><span class="r-entry-date">Apr 2026 – Present</span></div>
+            <div class="r-entry-sub">Milton, ON</div>
+            <div class="r-entry-desc"><ul>
+              <li>Support Grade 9 students transitioning to high school with guidance on resources and social expectations.</li>
+              <li>Lead introductory sessions and serve as a consistent resource for navigating daily high school life.</li>
+            </ul></div>
+          </div>
+          <div class="r-entry">
+            <div class="r-entry-top"><span class="r-entry-name">Swimming Instructor Volunteer — Town of Milton</span><span class="r-entry-date">Dec 2025 – Present</span></div>
+            <div class="r-entry-sub">Milton, ON</div>
+            <div class="r-entry-desc"><ul>
+              <li>Work with children of various age groups, applying patience and adaptability to support positive development.</li>
+            </ul></div>
+          </div>
+          <div class="r-entry">
+            <div class="r-entry-top"><span class="r-entry-name">Head Coder — St. Kateri Robotics Team</span><span class="r-entry-date">Sep 2024 – Present</span></div>
+            <div class="r-entry-sub">Milton, ON</div>
+            <div class="r-entry-desc"><ul>
+              <li>Lead all programming; design, build, and program robots for competitions.</li>
+              <li>Apply problem-solving and critical thinking to troubleshoot technical challenges.</li>
+            </ul></div>
+          </div>
+          <div class="r-entry">
+            <div class="r-entry-top"><span class="r-entry-name">Peace Program Representative — Halton Police</span><span class="r-entry-date">Feb 2025 – Jun 2025</span></div>
+            <div class="r-entry-sub">Oakville, ON</div>
+            <div class="r-entry-desc"><ul>
+              <li>Completed an intensive 11-week program; developed skills in conflict resolution, negotiation, and de-escalation.</li>
+            </ul></div>
+          </div>
+          <div class="r-entry">
+            <div class="r-entry-top"><span class="r-entry-name">Volunteer — Kumon Math and Reading</span><span class="r-entry-date">Nov 2024 – Nov 2025</span></div>
+            <div class="r-entry-sub">Milton, ON</div>
+            <div class="r-entry-desc"><ul>
+              <li>Assisted students in an academic environment and maintained educational materials with strong organizational skills.</li>
+            </ul></div>
+          </div>
+          <div class="r-entry">
+            <div class="r-entry-top"><span class="r-entry-name">Student Council &amp; Leadership Representative</span><span class="r-entry-date">Ongoing</span></div>
+            <div class="r-entry-desc"><ul>
+              <li>Led volunteer teams during fundraising and organized events to support student council initiatives.</li>
+            </ul></div>
+          </div>
+        </div>
+
+        <div class="resume-block">
+          <div class="resume-block-title">Education</div>
+          <div class="r-entry">
+            <div class="r-entry-top"><span class="r-entry-name">St. Kateri Tekakwitha Secondary School</span><span class="r-entry-date">2024 – Jun 2028</span></div>
+            <div class="r-entry-sub">Grade 10 AP (Advanced Placement) · Milton, ON</div>
+            <div class="r-entry-desc">DECA Provincials qualifier · Head Coder, Robotics Team</div>
+          </div>
+        </div>
+
+        <div class="resume-block">
+          <div class="resume-block-title">Certificates</div>
+          <div class="r-entry">
+            <div class="r-entry-desc">Standard First Aid · CPR · Arduino · Python · HTML5 · Phone Photography · High Five®</div>
+          </div>
+        </div>
+
+        <div class="resume-block">
+          <div class="resume-block-title">Skills</div>
+          <div class="skills-grid">
+            <span class="skill-tag">Python</span><span class="skill-tag">HTML5 / CSS</span><span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Arduino</span><span class="skill-tag">Robotics</span><span class="skill-tag">Groq API</span>
+            <span class="skill-tag">Vercel</span><span class="skill-tag">GitHub</span><span class="skill-tag">API Integration</span>
+            <span class="skill-tag">Problem-solving</span><span class="skill-tag">Leadership</span><span class="skill-tag">Team Collaboration</span>
+            <span class="skill-tag">Conflict Resolution</span><span class="skill-tag">First Aid / CPR</span><span class="skill-tag">Mental Math</span>
+          </div>
+        </div>
+
+        <div class="resume-block">
+          <div class="resume-block-title">Languages</div>
+          <div class="skills-grid">
+            <span class="skill-tag">English</span><span class="skill-tag">Hindi</span><span class="skill-tag">French</span><span class="skill-tag">Punjabi</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DOWNLOAD -->
+      <div id="resume-download" class="resume-pane">
+        <div class="download-bar">
+          <span>My_Resume.pdf — Waris Puri</span>
+          <a href="My_Resume.pdf" download class="download-btn">⬇ Download PDF</a>
+        </div>
+        <p style="font-size:0.82rem;color:var(--muted);">Make sure <code>My_Resume.pdf</code> is in the same folder as <code>index.html</code> when you deploy.</p>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <h2 class="section-heading">Contact</h2>
+      <p class="contact-note">Want to collaborate, ask about a project, or just say hi? Feel free to reach out — <a href="mailto:puriwaris2010@gmail.com">send me an email</a> and I'll get back to you.</p>
+      <div class="contact-grid">
+        <a href="mailto:puriwaris2010@gmail.com" class="contact-link">✉ puriwaris2010@gmail.com</a>
+        <a href="tel:+19058057230" class="contact-link">📞 905-805-7230</a>
+        <a href="https://linkedin.com" class="contact-link">in LinkedIn</a>
+        <a href="https://github.com" class="contact-link">⌥ GitHub</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+const spySections = ['about','experience','projects','education','resume','contact'];
+window.addEventListener('scroll', () => {
+  let active = 'about';
+  spySections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < 140) active = id;
+  });
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.classList.toggle('active', el.getAttribute('href') === '#' + active);
+  });
+}, { passive: true });
+
+function switchResume(tab, btn) {
+  document.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('resume-view').classList.toggle('visible', tab === 'view');
+  document.getElementById('resume-download').classList.toggle('visible', tab === 'download');
+}
+</script>
+</body>
+</html>

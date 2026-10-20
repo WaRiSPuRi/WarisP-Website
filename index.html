@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Waris Puri | Student, Head Coder &amp; Founder of Waris Services</title>
-  <meta name="description" content="Waris Puri — Grade 11 student in Milton, Ontario. Head Coder for the St. Kateri Robotics Team, founder of Waris Services, DECA Provincials qualifier, Peer Mentor and volunteer." />
+  <title>Waris Puri | Student &amp; Founder of Waris Services</title>
+  <meta name="description" content="Waris Puri — Grade 11 student in Milton, Ontario. Founder of Waris Services, Lead Financial Officer of STEAM ICAC, St. Kateri Robotics Team member, DECA Provincials qualifier, Peer Mentor and volunteer." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -101,7 +101,9 @@
     /* ---------- LAYOUT ---------- */
     .page { max-width: 1128px; margin: 0 auto; padding: 24px 16px 64px; display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 24px; align-items: start; }
     .col { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-    .aside { position: sticky; top: 80px; }
+    .aside { position: sticky; top: 72px; }
+    .aside .card-pad { padding: 14px 20px; }
+    @media (max-height: 640px) { .aside { position: static; } }
 
     .card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); overflow: hidden; }
     .card-pad { padding: 24px; }
@@ -227,27 +229,36 @@
     .resume-bar .rb-sub { font-size: 0.82rem; color: var(--muted); }
 
     /* ---------- SIDEBAR ---------- */
-    .side-title { font-size: 1rem; font-weight: 600; margin-bottom: 12px; }
-    .contact-item { display: flex; gap: 10px; padding: 8px 0; align-items: flex-start; }
+    .side-title { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+    .contact-item { display: flex; gap: 10px; padding: 4px 0; align-items: flex-start; }
     .contact-item svg { width: 20px; height: 20px; color: var(--muted); flex-shrink: 0; margin-top: 2px; }
     .contact-item .ci-label { font-size: 0.85rem; font-weight: 600; }
     .contact-item a, .contact-item .ci-val { font-size: 0.85rem; color: var(--brand); text-decoration: none; word-break: break-word; }
     .contact-item .ci-val { color: var(--muted); }
     .contact-item a:hover { text-decoration: underline; }
-    .lang-item { padding: 8px 0; }
-    .lang-item + .lang-item { border-top: 1px solid var(--border); }
-    .lang-item .l-name { font-weight: 600; font-size: 0.88rem; }
-    .lang-item .l-level { font-size: 0.8rem; color: var(--muted); }
-    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .stat { background: var(--card-hover); border-radius: 8px; padding: 12px; }
-    .stat b { display: block; font-size: 1.25rem; font-weight: 700; color: var(--brand); line-height: 1.2; }
-    .stat span { font-size: 0.75rem; color: var(--muted); }
-    .footer-note { font-size: 0.75rem; color: var(--subtle); text-align: center; padding: 12px 0; }
+    .lang-chips .chip { padding: 4px 12px; font-size: 0.82rem; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .stat { background: var(--card-hover); border-radius: 8px; padding: 8px 10px; }
+    .stat b { display: block; font-size: 1.1rem; font-weight: 700; color: var(--brand); line-height: 1.2; }
+    .stat span { font-size: 0.72rem; color: var(--muted); }
+
+    /* ---------- REVIEWS ---------- */
+    .reviews-title { font-size: 1rem; font-weight: 600; margin: 20px 0 10px; display: flex; align-items: center; gap: 8px; }
+    .reviews-title span, .stars { color: #e7a100; letter-spacing: 1px; }
+    .reviews { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .review { border: 1px solid var(--border); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 8px; background: var(--card); }
+    .stars { font-size: 0.85rem; }
+    .review blockquote { font-size: 0.85rem; color: var(--muted); flex: 1; }
+    .review figcaption { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--subtle); }
+    .review figcaption b { display: block; color: var(--text); font-size: 0.85rem; font-weight: 600; }
+    .rv-av { width: 32px; height: 32px; border-radius: 50%; background: #2e7d32; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.8rem; flex-shrink: 0; }
+    .footer-note { font-size: 0.75rem; color: var(--subtle); text-align: center; padding: 4px 0; }
 
     /* ---------- RESPONSIVE ---------- */
     @media (max-width: 960px) {
       .page { grid-template-columns: 1fr; }
       .aside { position: static; }
+      .reviews { grid-template-columns: 1fr; }
       .top-link span, .theme-btn span { display: none; }
       .top-link, .theme-btn { min-width: 48px; }
     }
@@ -326,7 +337,7 @@
         <div class="profile-row">
           <div>
             <h1 class="profile-name">Waris Puri</h1>
-            <p class="profile-head">Grade 11 Student · Head Coder, St. Kateri Robotics · Founder of Waris Services · DECA Provincials Qualifier</p>
+            <p class="profile-head">Grade 11 Student · Founder of Waris Services · Lead Financial Officer, STEAM ICAC · St. Kateri Robotics · DECA Provincials Qualifier</p>
             <div class="profile-meta">
               <span>Milton, Ontario, Canada</span>
               <span aria-hidden="true">·</span>
@@ -351,7 +362,7 @@
         </div>
         <div class="open-box">
           <strong>Open to opportunities</strong>
-          <span>Volunteering, student leadership, robotics &amp; coding projects, and local lawn care, car wash and pressure washing jobs in Milton.</span>
+          <span>Volunteering, student leadership, and robotics &amp; coding projects.</span>
         </div>
       </div>
     </section>
@@ -360,7 +371,7 @@
     <section class="card card-pad" id="about">
       <h2 class="card-title">About</h2>
       <div class="about about-clip" id="aboutText">
-        <p>Dedicated student with a well-rounded background in <strong>STEM, business, and community leadership</strong>. As the <strong>Head Coder for the St. Kateri Robotics Team</strong> and a <strong>DECA Provincials qualifier</strong>, I have built a strong foundation in technical problem-solving and strategic business communication.</p>
+        <p>Dedicated student with a well-rounded background in <strong>STEM, business, and community leadership</strong>. As a member of the <strong>St. Kateri Robotics Team</strong>, the <strong>Lead Financial Officer for STEAM ICAC</strong>, and a <strong>DECA Provincials qualifier</strong>, I have built a strong foundation in technical problem-solving and strategic business communication.</p>
         <p>I also run my own small business, <strong>Waris Services</strong>, offering lawn care, car washing, and pressure washing to neighbours in the Cobban neighbourhood of Milton. What started as helping out neighbours has turned into a business I'm proud of, with five-star reviews from repeat customers.</p>
         <p>My experience as a <strong>Peer Mentor</strong>, <strong>Army Cadet</strong>, and participant in the <strong>Halton Police Peace Program</strong> shows my commitment to teamwork and leadership. I'm First Aid/CPR certified and trained in HIGH FIVE® principles, with hands-on experience as a Swimming Instructor and Kumon volunteer. I also take photos at school and cadet events, and I speak four languages.</p>
       </div>
@@ -394,6 +405,24 @@
             </span>
           </div>
         </a>
+      </div>
+      <h3 class="reviews-title">What neighbours say <span>★★★★★</span></h3>
+      <div class="reviews">
+        <figure class="review">
+          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote>“Every single time I've asked him to cut my grass, he's delivered outstanding results — no shortcuts, no complaints, just a job well done. On more than one occasion, he's gone out of his way to help me get my car unstuck during a snowstorm on our street without even being asked. If you're looking for someone dependable, dedicated and willing to go the extra mile, Waris is your guy.”</blockquote>
+          <figcaption><span class="rv-av">S</span><span><b>Sajj</b>Cobban neighbour</span></figcaption>
+        </figure>
+        <figure class="review">
+          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote>“Whether it's cutting the grass, clearing snow, or general cleaning, he brings the same level of dedication and care to every single task. He doesn't cut corners or rush through a job — he takes his time, pays attention to detail, and makes sure everything looks right before he considers the work finished.”</blockquote>
+          <figcaption><span class="rv-av">W</span><span><b>Waqas</b>Cobban neighbour</span></figcaption>
+        </figure>
+        <figure class="review">
+          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <blockquote>“A job well done!! For any weed removal, grass cutting services I recommend Waris — this is the second time he removed our weeds in the backyard at a very reasonable price.”</blockquote>
+          <figcaption><span class="rv-av">K</span><span><b>Khushroo W.</b>Cobban neighbour</span></figcaption>
+        </figure>
       </div>
     </section>
 
@@ -430,8 +459,13 @@
         <div class="logo-sq lg-sk">SK</div>
         <div class="entry-body">
           <div class="entry-title">St. Kateri Tekakwitha Secondary School</div>
-          <div class="entry-date">3 roles · Milton, Ontario</div>
+          <div class="entry-date">4 roles · Milton, Ontario</div>
           <div class="group-roles">
+            <div class="role">
+              <div class="entry-title">Lead Financial Officer, STEAM ICAC</div>
+              <div class="entry-date">Executive position</div>
+              <div class="entry-desc">Executive team member of STEAM ICAC, leading the club's finances.</div>
+            </div>
             <div class="role">
               <div class="entry-title">Official OFSAA Photographer</div>
               <div class="entry-date">Jun 2026</div>
@@ -446,16 +480,15 @@
               </ul></div>
             </div>
             <div class="role">
-              <div class="entry-title">Head Coder, Robotics Team</div>
+              <div class="entry-title">Robotics Team Member</div>
               <div class="entry-date">Sep 2024 – Present</div>
               <div class="entry-desc"><ul>
-                <li>Head Coder for the St. Kateri Robotics Team.</li>
-                <li>Collaborate with team members to design, build, and program robots for various competitions.</li>
+                <li>Collaborate with team members to design, build, and program VEX robots for various competitions.</li>
                 <li>Apply problem-solving and critical thinking skills to troubleshoot technical challenges.</li>
               </ul></div>
               <div class="entry-skills">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 16.9l-6.1 3.5 1.5-6.8L2.2 9l6.9-.7L12 2Z"/></svg>
-                <span><b>Skills:</b> Python · Arduino · Problem-solving</span>
+                <span><b>Skills:</b> Java · VEX Robotics · Problem-solving</span>
               </div>
             </div>
           </div>
@@ -557,7 +590,7 @@
           <div class="entry-title">St. Kateri Tekakwitha Secondary School</div>
           <div class="entry-org">High School Diploma · Currently in Grade 11</div>
           <div class="entry-date">Expected graduation: Jun 2028</div>
-          <div class="entry-desc"><b>Activities:</b> Robotics Team (Head Coder) · DECA · Peer Mentoring · Student Council · Student Leadership · Event Photography</div>
+          <div class="entry-desc"><b>Activities:</b> STEAM ICAC (Lead Financial Officer) · Robotics Team · DECA · Peer Mentoring · Student Council · Student Leadership · Event Photography</div>
         </div>
       </div>
     </section>
@@ -613,6 +646,13 @@
     <section class="card card-pad" id="honors">
       <h2 class="card-title">Honors &amp; awards</h2>
       <div class="entry">
+        <div class="logo-sq lg-sk">SK</div>
+        <div class="entry-body">
+          <div class="entry-title">St. Kateri Student Distinction Award</div>
+          <div class="entry-org">St. Kateri Tekakwitha Secondary School</div>
+        </div>
+      </div>
+      <div class="entry">
         <div class="logo-sq lg-deca">DECA</div>
         <div class="entry-body">
           <div class="entry-title">DECA Provincials Qualifier</div>
@@ -635,11 +675,11 @@
       <h2 class="card-title">Skills</h2>
       <div class="skill-row">
         <div class="skill-ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-4.4 0-8 2.2-8 5v3h16v-3c0-2.8-3.6-5-8-5Z"/></svg></div>
-        <div><div class="s-name">Leadership</div><div class="s-note">Peer Mentor · Student Council · Waris Services</div></div>
+        <div><div class="s-name">Leadership</div><div class="s-note">STEAM ICAC Executive · Peer Mentor · Student Council · Waris Services</div></div>
       </div>
       <div class="skill-row">
         <div class="skill-ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.4 16.6 4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4Zm5.2 0 4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4Z"/></svg></div>
-        <div><div class="s-name">Problem-solving</div><div class="s-note">Head Coder, St. Kateri Robotics Team</div></div>
+        <div><div class="s-name">Problem-solving</div><div class="s-note">St. Kateri Robotics Team (VEX)</div></div>
       </div>
       <div class="skill-row">
         <div class="skill-ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 2c-3 0-8 1.5-8 4.5V20h16v-2.5C16 14.5 11 13 8 13Zm8 0c-.3 0-.7 0-1.1.1 1.3.9 2.1 2.2 2.1 3.4V20h7v-2.5c0-3-5-4.5-8-4.5Z"/></svg></div>
@@ -661,9 +701,10 @@
         <span class="chip">First Aid</span>
         <span class="chip">CPR</span>
         <span class="chip">HIGH FIVE® Principles</span>
+        <span class="chip">Java</span>
+        <span class="chip">VEX Robotics</span>
         <span class="chip">Python</span>
         <span class="chip">HTML5</span>
-        <span class="chip">Arduino</span>
         <span class="chip">Entrepreneurship</span>
         <span class="chip">Customer Service</span>
       </div>
@@ -711,7 +752,7 @@
     <section class="card card-pad">
       <h2 class="side-title">At a glance</h2>
       <div class="stat-grid">
-        <div class="stat"><b>8+</b><span>Roles &amp; positions</span></div>
+        <div class="stat"><b>10+</b><span>Roles &amp; positions</span></div>
         <div class="stat"><b>6</b><span>Certifications</span></div>
         <div class="stat"><b>4</b><span>Languages</span></div>
         <div class="stat"><b>5★</b><span>Business reviews</span></div>
@@ -720,10 +761,12 @@
 
     <section class="card card-pad" id="languages">
       <h2 class="side-title">Languages</h2>
-      <div class="lang-item"><div class="l-name">English</div></div>
-      <div class="lang-item"><div class="l-name">Hindi</div></div>
-      <div class="lang-item"><div class="l-name">French</div></div>
-      <div class="lang-item"><div class="l-name">Punjabi</div></div>
+      <div class="chips lang-chips">
+        <span class="chip">English</span>
+        <span class="chip">Hindi</span>
+        <span class="chip">French</span>
+        <span class="chip">Punjabi</span>
+      </div>
     </section>
 
     <p class="footer-note">© <span id="yr">2026</span> Waris Puri · Milton, Ontario</p>
